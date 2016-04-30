@@ -4,5 +4,11 @@ by estimating sleep cycles based on 90 minutes each.
 
 Inspired by [http://sleepyti.me](http://sleepyti.me)
 
+## Run the TypeScript watcher
+
+```bash
+tsc -w
+```
+
 ## Import project into Tizen IDE
 Select `File` > `Import` > `General` > `Existing Projects into Workplace`
