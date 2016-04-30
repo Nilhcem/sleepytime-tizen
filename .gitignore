@@ -1,1 +1,7 @@
+# Tizen binary
 *.wgt
+
+# Eclipse configuration files
+.sdk_delta.info
+.settings
+.sign
