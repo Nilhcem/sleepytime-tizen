@@ -6,4 +6,5 @@
             } catch (ignore) {}
         }
     });
+    document.getElementById("hello").innerHTML = TIZEN_L10N.hello;
 }());
