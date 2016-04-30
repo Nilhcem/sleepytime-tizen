@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>HelloTizen</name>
-	<comment></comment>
+	<name>Sleepytime</name>
+	<comment>Sleep Scheduler</comment>
 	<projects>
 	</projects>
 	<buildSpec>
