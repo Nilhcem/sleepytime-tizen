@@ -14,10 +14,6 @@ declare var $: {
     (selector: string): Zepto;
 };
 
-class SleepAt {
-    constructor(public hour: number, public minute: number, public amTime: boolean) { }
-}
-
 (function () {
     initLayout();
     window.addEventListener('tizenhwkey', ev => {
@@ -60,10 +56,10 @@ function initLayout() {
 
     // Go to bed link
     $('#go_to_bed').click(e => {
-        const elements:Zepto[] = [];
-        const now = new Date(new Date().getTime() + mnToMs(14))
+        const elements: Zepto[] = [];
+        const from = new Date(new Date().getTime() + mnToMs(15))
         for (let i = 1; i < 7; i++) {
-            const time = formatTime(new Date(now.getTime() + mnToMs(i * 90)));
+            const time = timeToString(new Date(from.getTime() + mnToMs(i * 90)));
             const html = i > 4 ? toBold(time) : time;
             elements.push($('<li class="ui-li-static" />').html(html));
         }
@@ -72,9 +68,6 @@ function initLayout() {
 
     // When to sleep link
     $('#when_to_sleep').click(e => {
-        $('#result_headline').html(TIZEN_L10N['gotobed_headline']);
-        $('#result_subheadline').html(TIZEN_L10N['gotobed_subheadline']);
-
         const hour = parseInt($('#select-hour').val());
         const minute = parseInt($('#select-minute').val());
         const amTime = $('#select-period').val() == 'am';
@@ -82,8 +75,14 @@ function initLayout() {
         if (hour == 0 || minute < 0) {
             alert(TIZEN_L10N['invalid_time']);
         } else {
-            const sleepAt = new SleepAt(hour, minute, amTime);
-            window.location.href = '#result_page';
+            const elements: Zepto[] = [];
+            const from = new Date(toDate(hour, minute, amTime).getTime() - mnToMs(15));
+            for (let i = 6; i > 0; i--) {
+                const time = timeToString(new Date(from.getTime() - mnToMs(i * 90)));
+                const html = i > 4 ? toBold(time) : time;
+                elements.push($('<li class="ui-li-static" />').html(html));
+            }
+            updateResult('whentosleep_headline', 'gotobed_subheadline', elements);
         }
     });
 
@@ -95,12 +94,27 @@ function minTwoDigits(n: number) {
     return (n < 10 ? '0' : '') + n;
 }
 
-function formatTime(date: Date) {
+function timeToString(date: Date) {
     const hours = date.getHours();
     const period = hours < 12 ? 'am' : 'pm';
     const hh = ((hours == 0 || hours == 12) ? 12 : hours < 12 ? hours : hours - 12).toString();
     const mn = minTwoDigits(date.getMinutes())
     return hh + ':' + mn + ' ' + TIZEN_L10N[period]
+}
+
+function toDate(hh: number, mn: number, amTime: boolean) {
+    var hours = hh;
+    if (hours == 12) {
+        hours = 0;
+    }
+    if (!amTime) {
+        hours += 12;
+    }
+
+    const time = new Date();
+    time.setHours(hours);
+    time.setMinutes(mn);
+    return time;
 }
 
 function mnToMs(i: number) { return i * 60000 }

@@ -14,5 +14,6 @@ TIZEN_L10N=
 	"go_to_bed" : "Head to bed",
 	"invalid_time" : "Please select a valid time",
 	"gotobed_headline" : "If you go to sleep right now, you should try to wake up at one of the following times:",
-	"gotobed_subheadline" : "It takes the average human fourteen minutes to fall asleep.<br /><br />A good night's sleep consists of 5-6 complete sleep cycles."
+	"gotobed_subheadline" : "It takes the average human about fifteen minutes to fall asleep.<br /><br />A good night's sleep consists of 5-6 complete sleep cycles.",
+	"whentosleep_headline" : "You should go to bed at one of the following times:"
 };
