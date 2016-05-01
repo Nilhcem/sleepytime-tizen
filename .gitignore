@@ -5,3 +5,6 @@
 .sdk_delta.info
 .settings
 .sign
+
+# Generated files
+main.js
