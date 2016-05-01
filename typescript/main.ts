@@ -41,14 +41,9 @@ function initLayout() {
     $('.ui-header').append($('<h1 />').html(TIZEN_L10N['app_name']));
 
     // Init l10n
-    ['when_to_get_up', 'go_to_bed', 'or', 'wake_up_at', 'when_to_sleep', 'am', 'pm', 'gotobed_headline', 'gotobed_subheadline']
+    ['when_to_get_up', 'go_to_bed', 'or', 'wake_up_at', 'when_to_sleep', 'am', 'pm']
         .forEach(it => { $('#' + it).html(TIZEN_L10N[it]) });
 
-    initMainPage();
-    initSubPages();
-}
-
-function initMainPage() {
     // Init '(hour)' select
     const selectHour = $('#select-hour');
     for (let i = 0; i < 13; i++) {
@@ -65,20 +60,21 @@ function initMainPage() {
 
     // Go to bed link
     $('#go_to_bed').click(e => {
-        const container = $('#gotobed_times');
+        const elements:Zepto[] = [];
         const now = new Date(new Date().getTime() + mnToMs(14))
-
-        container.empty();
         for (let i = 1; i < 7; i++) {
             const time = formatTime(new Date(now.getTime() + mnToMs(i * 90)));
             const html = i > 4 ? toBold(time) : time;
-            container.append($('<li class="ui-li-static" />').html(html));
+            elements.push($('<li class="ui-li-static" />').html(html));
         }
-        window.location.href = '#gotobed_page'
+        updateResult('gotobed_headline', 'gotobed_subheadline', elements);
     });
 
     // When to sleep link
     $('#when_to_sleep').click(e => {
+        $('#result_headline').html(TIZEN_L10N['gotobed_headline']);
+        $('#result_subheadline').html(TIZEN_L10N['gotobed_subheadline']);
+
         const hour = parseInt($('#select-hour').val());
         const minute = parseInt($('#select-minute').val());
         const amTime = $('#select-period').val() == 'am';
@@ -87,12 +83,10 @@ function initMainPage() {
             alert(TIZEN_L10N['invalid_time']);
         } else {
             const sleepAt = new SleepAt(hour, minute, amTime);
-            window.location.href = '#whentosleep_page';
+            window.location.href = '#result_page';
         }
     });
-}
 
-function initSubPages() {
     // Up button
     $('.ui-header a').click(e => { window.history.back(); })
 }
@@ -112,3 +106,13 @@ function formatTime(date: Date) {
 function mnToMs(i: number) { return i * 60000 }
 
 function toBold(html: string) { return '<b>' + html + '</b>' }
+
+function updateResult(headKey: string, subheadKey: string, elements: Zepto[]) {
+    $('#result_headline').html(TIZEN_L10N[headKey]);
+    $('#result_subheadline').html(TIZEN_L10N[subheadKey]);
+
+    const container = $('#result_times');
+    container.empty();
+    elements.forEach(el => container.append(el));
+    window.location.href = '#result_page'
+}
