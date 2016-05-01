@@ -24,3 +24,7 @@ html, body {
     font-size: 5em;
     color: #ffffff;
 }
+
+.btn-icon-back::after {
+   -webkit-mask-image: url(./images/core_icon_back.png);
+}

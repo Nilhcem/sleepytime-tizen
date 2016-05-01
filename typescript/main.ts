@@ -33,28 +33,21 @@ class SleepAt {
             }
         }
     });
-
-    $('#go_to_bed').click(e => { window.location.href = '#gotobed_page' });
-
-    $('#when_to_sleep').click(e => {
-        const hour = parseInt($('#select-hour').val());
-        const minute = parseInt($('#select-minute').val());
-        const amTime = $('#select-period').val() == "am";
-
-        if (hour == 0 || minute < 0) {
-            alert(TIZEN_L10N['invalid_time']);
-        } else {
-            const sleepAt = new SleepAt(hour, minute, amTime);
-            window.location.href = '#whentosleep_page';
-        }
-    });
 } ());
 
 function initLayout() {
+    // Init app title
+    $('.ui-header h1').html(TIZEN_L10N['app_name']);
+
     // Init l10n
     ['when_to_get_up', 'go_to_bed', 'or', 'wake_up_at', 'when_to_sleep', 'am', 'pm']
         .forEach(it => { $('#' + it).html(TIZEN_L10N[it]) });
 
+    initMainPage();
+    initSubPages();
+}
+
+function initMainPage() {
     // Init '(hour)' select
     const selectHour = $('#select-hour');
     for (let i = 0; i < 13; i++) {
@@ -68,6 +61,28 @@ function initLayout() {
         const text = (i == -5 ? TIZEN_L10N['minute'] : minTwoDigits(i));
         selectMinute.append($("<option />").val(i.toString()).text(text));
     }
+
+    // Go to bed link
+    $('#go_to_bed').click(e => { window.location.href = '#gotobed_page' });
+
+    // When to sleep link
+    $('#when_to_sleep').click(e => {
+        const hour = parseInt($('#select-hour').val());
+        const minute = parseInt($('#select-minute').val());
+        const amTime = $('#select-period').val() == "am";
+
+        if (hour == 0 || minute < 0) {
+            alert(TIZEN_L10N['invalid_time']);
+        } else {
+            const sleepAt = new SleepAt(hour, minute, amTime);
+            window.location.href = '#whentosleep_page';
+        }
+    });
+}
+
+function initSubPages() {
+    // Up button
+    $('.ui-header a').click(e => { window.history.back(); })
 }
 
 function minTwoDigits(n: number): string {

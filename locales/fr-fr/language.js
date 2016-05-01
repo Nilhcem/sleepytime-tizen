@@ -2,6 +2,7 @@
 
 TIZEN_L10N=
 {
+	"app_name" : "Sleepytime",
 	"wake_up_at" : "Je dois me réveiller à...",
 	"hour" : "(heure)",
 	"minute" : "(mn)",
