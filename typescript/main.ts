@@ -40,7 +40,7 @@ function initLayout() {
     $('.ui-header').append($('<h1 />').html(TIZEN_L10N['app_name']));
 
     // Init l10n
-    ['when_to_get_up', 'go_to_bed', 'or', 'wake_up_at', 'when_to_sleep', 'am', 'pm']
+    ['when_to_get_up', 'go_to_bed', 'or', 'wake_up_at', 'when_to_sleep', 'am', 'pm', 'gotobed_headline', 'gotobed_subheadline']
         .forEach(it => { $('#' + it).html(TIZEN_L10N[it]) });
 
     initMainPage();
@@ -63,7 +63,16 @@ function initMainPage() {
     }
 
     // Go to bed link
-    $('#go_to_bed').click(e => { window.location.href = '#gotobed_page' });
+    $('#go_to_bed').click(e => {
+        const container = $('#gotobed_times');
+        const now = new Date(new Date().getTime() + mnToMs(14))
+        for (let i = 1; i < 7; i++) {
+            const time = formatTime(new Date(now.getTime() + mnToMs(i * 90)));
+            const html = i > 4 ? toBold(time) : time;
+            container.append($('<li class="ui-li-static" />').html(html));
+        }
+        window.location.href = '#gotobed_page'
+    });
 
     // When to sleep link
     $('#when_to_sleep').click(e => {
@@ -85,6 +94,18 @@ function initSubPages() {
     $('.ui-header a').click(e => { window.history.back(); })
 }
 
-function minTwoDigits(n: number): string {
+function minTwoDigits(n: number) {
     return (n < 10 ? '0' : '') + n;
 }
+
+function formatTime(date: Date) {
+    const hours = date.getHours();
+    const period = hours < 12 ? 'am' : 'pm';
+    const hh = ((hours == 0 || hours == 12) ? 12 : hours < 12 ? hours : hours - 12).toString();
+    const mn = minTwoDigits(date.getMinutes())
+    return hh + ':' + mn + ' ' + TIZEN_L10N[period]
+}
+
+function mnToMs(i: number) { return i * 60000 }
+
+function toBold(html: string) { return '<b>' + html + '</b>' }

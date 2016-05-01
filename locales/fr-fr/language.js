@@ -12,5 +12,7 @@ TIZEN_L10N=
 	"or" : "ou",
 	"when_to_get_up" : "À quelle heure me réveiller si je pars me coucher maintenant",
 	"go_to_bed" : "Partir me coucher",
-	"invalid_time" : "Veuillez sélectionner une heure valide"
+	"invalid_time" : "Veuillez sélectionner une heure valide",
+	"gotobed_headline" : "Si vous vous couchez maintenant, vous devrez essayer de vous réveiller à l'une des heures suivantes :",
+	"gotobed_subheadline" : "Il faut environ 14 minutes à une personne pour qu'elle s'endorme.<br /><br />Une nuit idéale, il faut 5-6 cycles de sommeil complets."
 };
