@@ -8,7 +8,7 @@ TIZEN_L10N=
 	"minute" : "(mn)",
 	"am" : "AM",
 	"pm" : "PM",
-	"when_to_sleep" : "Quand m'endormir ?",
+	"when_to_sleep" : "Quand aller me coucher ?",
 	"or" : "ou",
 	"when_to_get_up" : "À quelle heure me réveiller si je pars me coucher maintenant",
 	"go_to_bed" : "Partir me coucher",

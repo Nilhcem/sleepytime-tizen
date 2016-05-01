@@ -4,6 +4,7 @@ declare var TIZEN_L10N: Array<string>;
 interface Zepto {
     append(el: any): Zepto;
     click(c: any);
+    empty();
     html(val: string): Zepto;
     text(value: string): Zepto;
     val(): string;
@@ -66,6 +67,8 @@ function initMainPage() {
     $('#go_to_bed').click(e => {
         const container = $('#gotobed_times');
         const now = new Date(new Date().getTime() + mnToMs(14))
+
+        container.empty();
         for (let i = 1; i < 7; i++) {
             const time = formatTime(new Date(now.getTime() + mnToMs(i * 90)));
             const html = i > 4 ? toBold(time) : time;
