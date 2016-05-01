@@ -20,11 +20,11 @@ class SleepAt {
 (function () {
     initLayout();
     window.addEventListener('tizenhwkey', ev => {
-        if (ev['keyName'] === "back") {
+        if (ev['keyName'] === 'back') {
             const page = $('.ui-page-active')[0];
             const pageId = page ? page.id : "";
 
-            if (pageId === "main") {
+            if (pageId === 'home_page') {
                 try {
                     tizen.application.getCurrentApplication().exit();
                 } catch (ignore) { }
@@ -34,25 +34,25 @@ class SleepAt {
         }
     });
 
-    $('#zzz').click(e => { window.location.href = '#three' });
+    $('#go_to_bed').click(e => { window.location.href = '#gotobed_page' });
 
-    $('#calculate').click(e => {
+    $('#when_to_sleep').click(e => {
         const hour = parseInt($('#select-hour').val());
         const minute = parseInt($('#select-minute').val());
         const amTime = $('#select-period').val() == "am";
 
-        if (hour == 0 || minute < -5) {
+        if (hour == 0 || minute < 0) {
             alert(TIZEN_L10N['invalid_time']);
         } else {
             const sleepAt = new SleepAt(hour, minute, amTime);
-            window.location.href = '#two';
+            window.location.href = '#whentosleep_page';
         }
     });
 } ());
 
 function initLayout() {
     // Init l10n
-    ['when_to_get_up', 'zzz', 'or', 'wake_up_at', 'calculate', 'am', 'pm']
+    ['when_to_get_up', 'go_to_bed', 'or', 'wake_up_at', 'when_to_sleep', 'am', 'pm']
         .forEach(it => { $('#' + it).html(TIZEN_L10N[it]) });
 
     // Init '(hour)' select
@@ -64,12 +64,12 @@ function initLayout() {
 
     // Init '(minute)' select
     const selectMinute = $('#select-minute');
-    for (let i = -5; i < 60; i +=5) {
+    for (let i = -5; i < 60; i += 5) {
         const text = (i == -5 ? TIZEN_L10N['minute'] : minTwoDigits(i));
         selectMinute.append($("<option />").val(i.toString()).text(text));
     }
 }
 
 function minTwoDigits(n: number): string {
-  return (n < 10 ? '0' : '') + n;
+    return (n < 10 ? '0' : '') + n;
 }

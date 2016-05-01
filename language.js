@@ -4,12 +4,12 @@ TIZEN_L10N=
 {
 	"wake_up_at" : "I have to wake up at...",
 	"hour" : "(hour)",
-	"minute" : "(minute)",
+	"minute" : "(mn)",
 	"am" : "AM",
 	"pm" : "PM",
-	"calculate" : "Calculate",
+	"when_to_sleep" : "When to sleep?",
 	"or" : "or",
-	"when_to_get_up" : "Find out when to get up if you go to bed now",
-	"zzz" : "zzz",
-	"invalid_time" : "Please select an hour and a minute before trying to calculate!"
+	"when_to_get_up" : "When to get up if you go to bed now",
+	"go_to_bed" : "Go to bed",
+	"invalid_time" : "Please select a valid time"
 };
