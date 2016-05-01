@@ -2,9 +2,12 @@ declare var tizen: any;
 declare var TIZEN_L10N: Array<string>;
 
 interface Zepto {
-    click(c: any)
+    append(el: any): Zepto;
+    click(c: any);
     html(val: string): Zepto;
-    val(): string
+    text(value: string): Zepto;
+    val(): string;
+    val(value: string): Zepto;
 }
 declare var $: {
     (selector: string): Zepto;
@@ -15,13 +18,13 @@ class SleepAt {
 }
 
 (function () {
-    initL10N();
+    initLayout();
     window.addEventListener('tizenhwkey', ev => {
         if (ev['keyName'] === "back") {
-            const page = $('.ui-page-active')[0],
-                pageid = page ? page.id : "";
+            const page = $('.ui-page-active')[0];
+            const pageId = page ? page.id : "";
 
-            if (pageid === "main") {
+            if (pageId === "main") {
                 try {
                     tizen.application.getCurrentApplication().exit();
                 } catch (ignore) { }
@@ -34,11 +37,11 @@ class SleepAt {
     $('#zzz').click(e => { window.location.href = '#three' });
 
     $('#calculate').click(e => {
-        const hour = parseInt($('#select-custom-0').val());
-        const minute = parseInt($('#select-custom-1').val());
-        const amTime = $('#select-custom-2').val() == "am";
+        const hour = parseInt($('#select-hour').val());
+        const minute = parseInt($('#select-minute').val());
+        const amTime = $('#select-period').val() == "am";
 
-        if (hour == 0 || minute == 0) {
+        if (hour == 0 || minute < -5) {
             alert("no way");
         } else {
             const sleepAt = new SleepAt(hour, minute, amTime);
@@ -47,7 +50,26 @@ class SleepAt {
     });
 } ());
 
-function initL10N() {
-    ['when_to_get_up', 'zzz', 'or', 'wake_up_at', 'calculate', 'hour', 'minute', 'am', 'pm']
-        .forEach(it => { $('#' + it).html(TIZEN_L10N[it]) })
+function initLayout() {
+    // Init l10n
+    ['when_to_get_up', 'zzz', 'or', 'wake_up_at', 'calculate', 'am', 'pm']
+        .forEach(it => { $('#' + it).html(TIZEN_L10N[it]) });
+
+    // Init '(hour)' select
+    const selectHour = $('#select-hour');
+    for (let i = 0; i < 13; i++) {
+        const text = (i == 0 ? TIZEN_L10N['hour'] : minTwoDigits(i));
+        selectHour.append($("<option />").val(i.toString()).text(text));
+    }
+
+    // Init '(minute)' select
+    const selectMinute = $('#select-minute');
+    for (let i = -5; i < 60; i +=5) {
+        const text = (i == -5 ? TIZEN_L10N['minute'] : minTwoDigits(i));
+        selectMinute.append($("<option />").val(i.toString()).text(text));
+    }
+}
+
+function minTwoDigits(n: number): string {
+  return (n < 10 ? '0' : '') + n;
 }
