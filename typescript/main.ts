@@ -42,7 +42,7 @@ class SleepAt {
         const amTime = $('#select-period').val() == "am";
 
         if (hour == 0 || minute < -5) {
-            alert("no way");
+            alert(TIZEN_L10N['invalid_time']);
         } else {
             const sleepAt = new SleepAt(hour, minute, amTime);
             window.location.href = '#two';

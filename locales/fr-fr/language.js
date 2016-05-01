@@ -10,5 +10,6 @@ TIZEN_L10N=
 	"calculate" : "Calculer",
 	"or" : "ou",
 	"when_to_get_up" : "Déterminer à quelle heure dois-je me réveiller si je pars me coucher maintenant",
-	"zzz" : "zzz"
+	"zzz" : "zzz",
+	"invalid_time" : "Veuillez sélectionner une heure valide avant de tenter de calculer"
 };
