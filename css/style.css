@@ -28,3 +28,20 @@ html, body {
 .btn-icon-back::after {
    -webkit-mask-image: url(./images/core_icon_back.png);
 }
+
+.ui-li-static {
+    color: rgba(61,185,204,1);
+}
+
+.ui-content p {
+    text-align: center;
+}
+
+.ui-listview {
+    margin: 20px;
+    max-width: 160px;
+}
+
+.ui-listview li {
+    text-align: center;
+}

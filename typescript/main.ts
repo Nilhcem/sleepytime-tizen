@@ -22,7 +22,7 @@ class SleepAt {
     window.addEventListener('tizenhwkey', ev => {
         if (ev['keyName'] === 'back') {
             const page = $('.ui-page-active')[0];
-            const pageId = page ? page.id : "";
+            const pageId = page ? page.id : '';
 
             if (pageId === 'home_page') {
                 try {
@@ -37,7 +37,7 @@ class SleepAt {
 
 function initLayout() {
     // Init app title
-    $('.ui-header h1').html(TIZEN_L10N['app_name']);
+    $('.ui-header').append($('<h1 />').html(TIZEN_L10N['app_name']));
 
     // Init l10n
     ['when_to_get_up', 'go_to_bed', 'or', 'wake_up_at', 'when_to_sleep', 'am', 'pm']
@@ -52,14 +52,14 @@ function initMainPage() {
     const selectHour = $('#select-hour');
     for (let i = 0; i < 13; i++) {
         const text = (i == 0 ? TIZEN_L10N['hour'] : minTwoDigits(i));
-        selectHour.append($("<option />").val(i.toString()).text(text));
+        selectHour.append($('<option />').val(i.toString()).text(text));
     }
 
     // Init '(minute)' select
     const selectMinute = $('#select-minute');
     for (let i = -5; i < 60; i += 5) {
         const text = (i == -5 ? TIZEN_L10N['minute'] : minTwoDigits(i));
-        selectMinute.append($("<option />").val(i.toString()).text(text));
+        selectMinute.append($('<option />').val(i.toString()).text(text));
     }
 
     // Go to bed link
@@ -69,7 +69,7 @@ function initMainPage() {
     $('#when_to_sleep').click(e => {
         const hour = parseInt($('#select-hour').val());
         const minute = parseInt($('#select-minute').val());
-        const amTime = $('#select-period').val() == "am";
+        const amTime = $('#select-period').val() == 'am';
 
         if (hour == 0 || minute < 0) {
             alert(TIZEN_L10N['invalid_time']);
